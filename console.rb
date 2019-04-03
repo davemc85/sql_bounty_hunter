@@ -30,7 +30,7 @@ space_cowboy3 = SpaceCowboy.new({
 
 space_cowboy3.save()
 
-
+binding.pry
 cowboys = SpaceCowboy.all();
 
 # SpaceCowboy.delete_all();

@@ -107,21 +107,33 @@ class SpaceCowboy
     db.close()
   end
 
+  def SpaceCowboy.find_by_name(name)
+    db = PG.connect({ dbname: 'bounty', host: 'localhost'})
+    sql = "SELECT * FROM space_cowboys WHERE name = $1"
+    values = [name]
+    db.prepare("find_by_name", sql)
+    result = db.exec_prepared("find_by_name", values)
+    if (result == [])
+      return nil
+    else
+      return SpaceCowboy.new(result[0])
+    end
+    db.close
+  end
 
-  # def SpaceCowboy.find_by_name(name)
-  #   # connect to db
-  #   db = PG.connect({ dbname: 'bounty', host: 'localhost'})
-  #   #write sql string
-  #   sql = "SELECT * FROM space_cowboys WHERE name = $1"
-  #   value = [@name]
-  #   # prepare statement
-  #   db.prepare("find_one", sql)
-  #   # run prepared statement
-  #   cowboy = db.exec_prepared("find_one", value)[0]
-  #   # close db
-  #   db.close()
-  #   return cowboy
-  # end
+  def SpaceCowboy.find_by_id(id)
+    db = PG.connect({ dbname: 'bounty', host: 'localhost'})
+    sql = "SELECT * FROM space_cowboys WHERE id = $1"
+    values = [id]
+    db.prepare("find_by_id", sql)
+    result = db.exec_prepared("find_by_id", values)
+    if (result == [])
+      return nil
+    else
+      return SpaceCowboy.new(result[0])
+    end
+    db.close
+  end
 
 
 end
